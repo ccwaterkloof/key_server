@@ -1,0 +1,22 @@
+{
+  "name": "jannie/ccwauth",
+  "description": "Token dispenser for CCW Prayer app",
+  "type": "project",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Jannie Theunissen",
+      "email": "jannie@onesheep.org"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Test\\": "tests/"
+    }
+  }
+}

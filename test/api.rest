@@ -1,0 +1,8 @@
+@host = http://ccwauth.dv
+
+GET {{host}} HTTP/1.1
+
+###
+GET {{host}}?password=this%20is%20it HTTP/1.1
+###
+GET {{host}}?password=this is it HTTP/1.1
