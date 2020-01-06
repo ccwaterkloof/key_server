@@ -6,25 +6,27 @@ use Dotenv\Dotenv;
 
 class Controller
 {
-    public function __construct($get, $post)
+    public function __construct()
     {
         $dotenv = Dotenv::createImmutable(__DIR__, '../.env');
         $dotenv->load();
+    }
 
-        if (! $this->isLegit($get)) {
+    public function handleKeyRequest($get)
+    {
+        if (! $this->isValidKeyRequest($get)) {
             $this->respond('Unauthorized', 401);
         }
 
-        $this->sendCredentials();
+        $data = [
+            'key' => getenv('API_KEY'),
+            'token' => getenv('API_TOKEN'),
+            ];
+
+        $this->respond($data);
     }
 
-    public function respond($data, $code = 200)
-    {
-        header('Content-Type: application/json', false, $code);
-        die(json_encode($data));
-    }
-
-    protected function isLegit($get)
+    protected function isValidKeyRequest($get)
     {
         if (! isset($get['password'])) {
             return false;
@@ -37,13 +39,9 @@ class Controller
         return $expected == $actual;
     }
 
-    protected function sendCredentials()
+    protected function respond($data, $code = 200)
     {
-        $data = [
-            'key' => getenv('API_KEY'),
-            'token' => getenv('API_TOKEN'),
-            ];
-
-        $this->respond($data);
+        header('Content-Type: application/json', false, $code);
+        die(json_encode($data));
     }
 }
