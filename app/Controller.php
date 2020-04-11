@@ -3,8 +3,9 @@
 namespace App;
 
 use Dotenv\Dotenv;
+use Skateboard\Wheels\WebController;
 
-class Controller
+class Controller extends WebController
 {
     public function __construct()
     {
@@ -12,10 +13,10 @@ class Controller
         $dotenv->load();
     }
 
-    public function handleKeyRequest($get)
+    public function index()
     {
-        if (! $this->isValidKeyRequest($get)) {
-            $this->respond('Unauthorized', 401);
+        if (! $this->isValidKeyRequest()) {
+            $this->abort(401);
         }
 
         $data = [
@@ -23,25 +24,18 @@ class Controller
             'token' => getenv('API_TOKEN'),
             ];
 
-        $this->respond($data);
+        $this->json($data);
     }
 
-    protected function isValidKeyRequest($get)
+    protected function isValidKeyRequest()
     {
-        if (! isset($get['password'])) {
+        if (! $this->input('password')) {
             return false;
         }
 
-        // var_dump($get);
         $expected = getenv('PASSWORD');
-        $actual = $get['password'];
+        $actual = $this->input('password');
 
         return $expected == $actual;
-    }
-
-    protected function respond($data, $code = 200)
-    {
-        header('Content-Type: application/json', false, $code);
-        die(json_encode($data));
     }
 }

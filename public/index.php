@@ -2,5 +2,19 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-$app = new App\Controller();
-$app->handleKeyRequest($_GET);
+$router = new \Bramus\Router\Router();
+$router->setBasePath('/');
+
+/*
+|--------------------------------------------------------------------
+| Define you application routes here
+|--------------------------------------------------------------------
+|
+| For using middleware, route parameters, custom 404 responses etc.
+| See the router docs: https://github.com/bramus/router
+|
+*/
+
+$router->get('/', '\App\Controller@index');
+
+$router->run();

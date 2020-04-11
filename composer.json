@@ -11,6 +11,7 @@
     }
   ],
   "require": {
+    "skateboard/framework": "^1.0",
     "vlucas/phpdotenv": "^4.1"
   },
   "autoload": {
@@ -18,5 +19,11 @@
       "App\\": "app/",
       "Test\\": "tests/"
     }
-  }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "prefer-stable": true
 }
