@@ -1,11 +1,11 @@
-@host = https://ccw.kiekies.net
 @host = http://ccwauth.dv
+@host = https://ccw.kiekies.net
 
 GET {{host}} HTTP/1.1
 
 ###
 GET {{host}}?password=this%20is%20it HTTP/1.1
 ###
-GET {{host}}?password=this is it HTTP/1.1
+GET {{host}}?password=%23R HTTP/1.1
 ###
 GET {{host}}?password=not it HTTP/1.1
